@@ -1,8 +1,9 @@
 <?php
-require_once 'Usuario.php';
-require_once '../config/Database.php';
+require_once 'Livro.php';
+require_once(__DIR__ . '/../config/Database.php');
 
-class UsuarioDAO {
+
+class LivroRepository {
     private $conn;
 
     public function __construct() {
@@ -10,44 +11,26 @@ class UsuarioDAO {
         $this->conn = $db->getConnection();
     }
 
-    // Busca um usuário pelo email
-    public function buscarPorEmail($email) {
-        $query = "SELECT * FROM tbl_usuario WHERE email = :email";
+ // Busca um usuário pelo email
+    public function buscarPorTitulo($titulo) {
+        $query = "SELECT * FROM tbl_livros WHERE titulo = :titulo";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':titulo', $titulo);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Valida login: retorna objeto Usuario ou null
-    public function validarLogin($email, $senha) {
-        $usuarioData = $this->buscarPorEmail($email);
-        if ($usuarioData && password_verify($senha, $usuarioData['senha_hash'])) {
-            return new Usuario($usuarioData);
-        }
-        return null;
-    }
-
-    // Retorna todos os tipos de usuário da tabela tipo_usuario
-public function listarTiposUsuarios() {
-    $query = "SELECT id, tipo FROM tbl_tipo_usuario ORDER BY tipo";
-    $stmt = $this->conn->prepare($query);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-
-    // Cria um novo usuário no banco
-   public function criarUsuario(Usuario $usuario) {
-    $query = "INSERT INTO tbl_usuario (nomeC, email, senha_hash, tbl_tipo_usuario_id) 
-              VALUES (:nomeC, :email, :senha_hash, :tbl_tipo_usuario_id)";
+    // Adiciona um novo usuário ao banco de dados
+   public function AddLivro(Livro $livro) {
+    $query = "INSERT INTO tbl_livros (titulo, autor, ano, isbn) 
+              VALUES (:titulo, :autor, :ano, :isbn)";
     try {
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindValue(':nomeC', $usuario->getNomeC());
-        $stmt->bindValue(':email', $usuario->getEmail());
-        $stmt->bindValue(':senha_hash', $usuario->getSenhaHash());
-        $stmt->bindValue(':tbl_tipo_usuario_id', $usuario->getTipo(), PDO::PARAM_INT);
+        $stmt->bindValue(':titulo', $livro->getTitulo());
+        $stmt->bindValue(':autor', $livro->getAutor());
+        $stmt->bindValue(':ano', $livro->getAno());
+        $stmt->bindValue(':isbn', $livro->getIsbn());
 
         if ($stmt->execute()) {
             return $this->conn->lastInsertId();
@@ -58,7 +41,7 @@ public function listarTiposUsuarios() {
     }
 }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////
     // Busca usuário pelo ID e retorna objeto Usuario ou null
     public function buscarPorId($id) {
         $query = "SELECT * FROM tbl_usuario WHERE id = :id";
@@ -67,7 +50,7 @@ public function listarTiposUsuarios() {
         $stmt->execute();
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($data) {
-            return new Usuario($data);
+            return new Livro($data);
         }
         return null;
     }
