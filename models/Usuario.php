@@ -2,8 +2,8 @@
 
 class Usuario {
     private $id;
-    private $email;
     private $nomeC;
+    private $email;
     private $senha_hash;
     private $created_at;
 
@@ -19,8 +19,8 @@ class Usuario {
 
     // Getters e Setters
     public function getId() { return $this->id; }
-    public function getEmail() { return $this->email; }
     public function getNomeC() { return $this->nomeC; }
+    public function getEmail() { return $this->email; }
     public function getSenhaHash() { return $this->senha_hash; }
     public function getCreatedAt() { return $this->created_at; }
 

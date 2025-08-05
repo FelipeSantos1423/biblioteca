@@ -1,13 +1,14 @@
 <?php
-require_once __DIR__ . '/../models/UsuarioDAO.php';
-require_once __DIR__ . '/../utils/Sanitizacao.php';
+require_once(__DIR__ . '/../../models/Usuario.php');
+require_once(__DIR__ . '/../../models/UsuarioDAO.php');
 
 // Sanitiza entradas
+$nomeC = Sanitizacao::sanitizar($_POST['nomeC']);
 $email = Sanitizacao::sanitizar($_POST['email']);
 $senha = Sanitizacao::sanitizar($_POST['senha']);
 
 $usuarioDAO = new UsuarioDAO();
-$sucesso = $usuarioDAO->cadastrar($email, $senha);
+$sucesso = $usuarioDAO->cadastrar($nomeC, $email, $senha);
 
 if ($sucesso) {
     echo "Usuário cadastrado com sucesso! <br><br>";

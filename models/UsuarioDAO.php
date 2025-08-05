@@ -59,15 +59,6 @@ public function buscarPorId($id) {
     return null;
 }
 
-// Atualiza só o nome
-public function atualizarEmail($id, $nomeC) {
-    $query = "UPDATE usuarios SET nomeC = :nomeC WHERE id = :id";
-    $stmt = $this->conn->prepare($query);
-    $stmt->bindParam(':nomeC', $nomeC);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    return $stmt->execute();
-}
-
 // Atualiza só o email
 public function atualizarEmail($id, $email) {
     $query = "UPDATE usuarios SET email = :email WHERE id = :id";
@@ -80,7 +71,7 @@ public function atualizarEmail($id, $email) {
 // Atualiza email e senha e nome
 public function atualizarEmailSenha($id, $nomeC, $email, $senha) {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    $query = "UPDATE usuarios SET email = :email, senha_hash = :senha_hash, nomeC = :nomeC WHERE id = :id";
+    $query = "UPDATE usuarios SET nomeC = :nomeC, email = :email, senha_hash = :senha_hash WHERE id = :id";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':nomeC', $nomeC);
     $stmt->bindParam(':email', $email);

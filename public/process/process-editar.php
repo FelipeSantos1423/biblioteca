@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../models/UsuarioDAO.php';
-require_once __DIR__ . '/../models/Usuario.php';
+require_once(__DIR__ . '/../../models/Usuario.php');
+require_once(__DIR__ . '/../../models/UsuarioDAO.php');
 
 if (!isset($_SESSION['logado'])) {
     header('Location: login.php');
@@ -10,6 +10,7 @@ if (!isset($_SESSION['logado'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
+    $nomeC = trim($_POST['nomeC']);
     $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
     $senha = trim($_POST['senha']);
 
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Senha vazia = não altera a senha
         $atualizou = $usuarioDAO->atualizarEmail($id, $email);
     } else {
-        $atualizou = $usuarioDAO->atualizarEmailSenha($id, $email, $senha);
+        $atualizou = $usuarioDAO->atualizarEmailSenha($id,$nomeC, $email, $senha);
     }
 
     if ($atualizou) {
