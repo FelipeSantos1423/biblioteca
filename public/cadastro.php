@@ -7,6 +7,9 @@
 <body>
     <form action="process_cadastro.php" method="post">
         <h1>Cadastro</h1>
+        <label for="nomeC">E-mail:</label>
+        <input type="text" name="nomeC" id="nomeC" required>
+        <br>
         <label for="email">E-mail:</label>
         <input type="email" name="email" id="email" required>
         <br>
