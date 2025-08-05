@@ -1,4 +1,4 @@
-# Explicação Detalhada:
+# Explicação Detalhada
 
 ##  1. Classe *Database*:
 
