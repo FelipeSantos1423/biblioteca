@@ -42,44 +42,31 @@ class LivroRepository {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Busca usuário pelo ID e retorna objeto Usuario ou null
-    public function buscarPorId($id) {
-        $query = "SELECT * FROM tbl_usuario WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($data) {
-            return new Livro($data);
-        }
-        return null;
-    }
+public function listarTodos() {
+    $stmt = $this->pdo->prepare("SELECT * FROM livros");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_CLASS, 'Livro');
+}
 
-    // Atualiza só o email do usuário pelo ID
-    public function atualizarEmail($id, $email) {
-        $query = "UPDATE tbl_usuario SET email = :email WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(':email', $email);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
-    }
+public function buscarPorId($id) {
+    $stmt = $this->pdo->prepare("SELECT * FROM livros WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetchObject('Livro');
+}
 
-    // Atualiza email e senha do usuário pelo ID
-    public function atualizarEmailSenha($id, $email, $senha) {
-        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-        $query = "UPDATE tbl_usuario SET email = :email, senha_hash = :senha_hash WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(':email', $email);
-        $stmt->bindValue(':senha_hash', $senha_hash);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
-    }
+public function atualizar(Livro $livro) {
+    $stmt = $this->pdo->prepare("UPDATE livros SET titulo=?, autor=?, ano=?, isbn=? WHERE id=?");
+    return $stmt->execute([
+        $livro->getTitulo(),
+        $livro->getAutor(),
+        $livro->getAno(),
+        $livro->getIsbn(),
+        $livro->getId()
+    ]);
+}
 
-    // Exclui usuário pelo ID
-    public function excluir($id) {
-        $query = "DELETE FROM tbl_usuario WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
-    }
+public function excluir($id) {
+    $stmt = $this->pdo->prepare("DELETE FROM livros WHERE id=?");
+    return $stmt->execute([$id]);
+}
 }
