@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $atualizou = $livroRepo->atualizar($livro);
 
     if ($atualizou) {
-    header('Location: ../exibe.php?msg=livro_atualizado');
+    header('Location: ../exibe-dados.php?msg=livro_atualizado');
     exit;
 } else {
     echo "Erro ao atualizar o livro.";

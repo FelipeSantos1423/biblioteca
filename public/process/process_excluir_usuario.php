@@ -15,7 +15,7 @@ $excluiu = $usuarioDAO->excluir($id);
 
 if ($excluiu) {
     session_destroy();
-    header('Location: login.php?msg=conta_excluida');
+    header('Location: ../login.php?msg=conta_excluida');
     exit;
 } else {
     echo "Erro ao excluir usuário.";
