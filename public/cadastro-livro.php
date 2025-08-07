@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="../assets/style.css">
-    <title>Cadastro</title>
+    <title>Cadastrar Livro</title>
 </head>
 <body>
 
