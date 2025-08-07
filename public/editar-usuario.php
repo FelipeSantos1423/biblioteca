@@ -18,7 +18,7 @@ $usuario = unserialize($_SESSION['usuario']);
     <title>Editar Usuário</title>
 </head>
 <body>
-    <form method="post" action="process/process-editar.php">
+    <form method="post" action="process/process_editar.php">
         <h2>Editar Usuário</h2>
         <input type="hidden" name="id" value="<?= $usuario->getId() ?>">
 

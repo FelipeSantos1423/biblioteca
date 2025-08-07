@@ -68,6 +68,15 @@ public function atualizarEmail($id, $email) {
     return $stmt->execute();
 }
 
+public function atualizarNomeEmail($id, $nomeC, $email) {
+    $query = "UPDATE usuarios SET nomeC = :nomeC, email = :email WHERE id = :id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':nomeC', $nomeC);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
 // Atualiza email e senha e nome
 public function atualizarEmailSenha($id, $nomeC, $email, $senha) {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
