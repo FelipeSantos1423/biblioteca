@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario = $usuarioDAO->buscarPorId($id);
         $_SESSION['usuario'] = serialize($usuario);
 
-        header('Location: ../exibe-dados.php');
+        header('Location: ../exibe-dados.php?msg=livro_excluido');
         exit;
     } else {
         echo "Erro ao atualizar usuário.";

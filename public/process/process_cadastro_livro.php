@@ -30,7 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $id = $livroRepository->AddLivro($livro);
         if ($id) {
-            echo "Livro cadastrado com sucesso! ID: $id";
+            echo "Livro cadastrado com sucesso! ID: $id <br>";
+             echo 'Ir para página de <a href="../exibe-dados.php">exibição de dados</a>';
         } else {
             echo "Erro ao cadastrar Livro. Tente novamente mais tarde.";
         }

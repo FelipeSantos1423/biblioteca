@@ -13,7 +13,7 @@ $sucesso = $usuarioDAO->cadastrar($nomeC, $email, $senha);
 
 if ($sucesso) {
     echo "Usuário cadastrado com sucesso! <br><br>";
-    echo 'Ir para página de <a href="login.php">Login</a>';
+    echo 'Ir para página de <a href="../login.php">Login</a>';
 } else {
     echo "Erro: e-mail já cadastrado ou falha ao inserir no banco.";
 }

@@ -14,7 +14,7 @@ $usuario = unserialize($_SESSION['usuario']);
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../assets/editar-usuario.css">
+    <link rel="stylesheet" href="../assets/editar_usuario.css">
     <title>Editar Usuário</title>
 </head>
 <body>
