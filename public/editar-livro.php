@@ -30,7 +30,7 @@ if (!$livro) {
     <title>Editar Livro</title>
 </head>
 <body>
-    <form method="post" action="process/process-editar-livro.php">
+    <form method="post" action="process/process_editar_livro.php">
         <h2>Editar Livro</h2>
         <input type="hidden" name="id" value="<?= $livro->getId() ?>">
 
