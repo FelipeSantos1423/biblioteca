@@ -11,6 +11,13 @@ $senha = Sanitizacao::sanitizar($_POST['senha']);
 $usuarioDAO = new UsuarioDAO();
 $sucesso = $usuarioDAO->cadastrar($nomeC, $email, $senha);
 
+ // Verifica se usuario já existe
+ if ($usuarioDAO->buscarPorEmail($email)) {
+    echo 'Ir para página de <a href="../login.php">Login</a><br>';
+    echo 'Ir para página de <a href="../cadastro.php">cadastro</a><br>';
+    die('Usuário já cadastrado.');
+}
+
 if ($sucesso) {
     echo "Usuário cadastrado com sucesso! <br><br>";
     echo 'Ir para página de <a href="../login.php">Login</a>';
